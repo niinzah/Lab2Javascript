@@ -9,10 +9,13 @@ if (form) {
   const nameError = document.getElementById("nameError");
   const emailInput = document.getElementById("email");
   const emailError = document.getElementById("emailError");
+  const topicInput = document.getElementById("topic");
+  const topicError = document.getElementById("topicError");
 
   console.log("4. nameInput:", nameInput, "nameError:", nameError);
 
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
+  const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   function validateName() {
     const value = nameInput.value.trim();
@@ -44,29 +47,45 @@ if (form) {
     return "";
   }
 
+  function validateTopic() {
+    if (topicInput.value === "") {
+      return "Please select a topic.";
+    }
+    return "";
+  }
+
   nameInput.addEventListener("blur", () => {
     console.log("blur fired");
     nameError.textContent = validateName();
   });
 
-    emailInput.addEventListener("blur", () => {
+  emailInput.addEventListener("blur", () => {
     emailError.textContent = validateEmail();
   });
+
+  topicInput.addEventListener("change", () => {
+    topicError.textContent = validateTopic();
+  });
+
 
   form.addEventListener("submit", (e) => {
     const nameMsg = validateName();
     const emailMsg = validateEmail();
+    const topicMsg = validateTopic();
 
     nameError.textContent = nameMsg;
     emailError.textContent = emailMsg;
+    topicError.textContent = topicMsg;
 
     if (nameMsg || emailMsg) {
       e.preventDefault();
       // Focus the first field that has a problem
       if (nameMsg) {
         nameInput.focus();
+      } else if (emailMsg) {
+        emailInput.focus()
       } else {
-        emailInput.focus();
+        topicInput.focus();
       }
     }
   } );

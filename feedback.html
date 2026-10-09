@@ -27,26 +27,27 @@
         <p> Please fill in the form below for any feedback you may have!
           </p>
          <form id="FeedbackForm" novalidate>
-            <label for="name">Full Name</label>
+            <label for="name">Full Name*</label>
             <input type="text" id="name" name="name" placeholder="Full Name">
             <span id="nameError" style="color: red;"></span>
 
-            <label for="email">Email</label>
+            <label for="email">Email*</label>
             <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
             <span id="emailError" style="color: red;"></span>
-            
+
             <select name="topic">
+                <option value="" disabled selected hidden>Select a Topic*</option>
                 <option value="photography">Photography</option>
                 <option value="written_content">Written Content</option>
                 <option value="other">Other</option>
             </select>
 
-            <label for="message">Message</label>
+            <label for="message">Message (Optional)</label>
             <textarea id="message" name="message" rows="5"></textarea>
 
     <button type="submit">Submit</button>
     </form>
-
+    <p>* indicates a required field</p>
     
 
     </section>
