@@ -328,6 +328,16 @@ select {
   min-height: 2.5rem;
 }
 
+.status {
+  min-height: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.status.success {
+  color: #1a6b32;
+  font-weight: bold;
+}
+
 footer {
   background-color: var(--primary);
   padding: 10px;

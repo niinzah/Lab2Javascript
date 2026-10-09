@@ -16,6 +16,7 @@ if (form) {
   const commentsCounter = document.getElementById("commentsCounter");
   const websiteInput = document.getElementById("website");
   const websiteError = document.getElementById("websiteError");
+  const formStatus = document.getElementById("formStatus");
 
   const COMMENTS_MIN = 15;
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
@@ -111,29 +112,45 @@ form.addEventListener("submit", (e) => {
   websiteError.textContent = websiteMsg;
   commentsError.textContent = commentsMsg;
 
+  e.preventDefault();
+
   if (nameMsg || emailMsg || topicMsg || websiteMsg || commentsMsg) {
-    e.preventDefault();
+    formStatus.textContent = "";
+    formStatus.classList.remove("success");
+
     if (nameMsg) nameInput.focus();
     else if (emailMsg) emailInput.focus();
     else if (topicMsg) topicInput.focus();
     else if (websiteMsg) websiteInput.focus();
     else commentsInput.focus();
+    return;
   }
 
-form.addEventListener("reset", () => {
-  nameError.textContent = "";
-  emailError.textContent = "";
-  topicError.textContent = "";
-  websiteError.textContent = "";
-  commentsError.textContent = ""; });
+  formStatus.textContent = "Thank you! Your feedback has been submitted.";
+  formStatus.classList.add("success");
 
-  // when reset it removes invalid markers because of using aria-invalid
-  [nameInput, emailInput, topicInput, websiteInput, commentsInput].forEach((el) => {
-    el.removeAttribute("aria-invalid");
+  form.addEventListener("reset", () => {
+    nameError.textContent = "";
+    emailError.textContent = "";
+    topicError.textContent = "";
+    websiteError.textContent = "";
+    commentsError.textContent = "";
+
+    [nameInput, emailInput, topicInput, websiteInput, commentsInput].forEach((el) => {
+      el.removeAttribute("aria-invalid");
+    });
+
+    // The reset event fires before the fields are emptied, so wait a tick
+    setTimeout(updateCommentsCounter, 0);
   });
 
-  setTimeout(updateCommentsCounter, 0);
-});
+  const clearButton = form.querySelector('button[type="reset"]');
+  clearButton.addEventListener("click", () => {
+    formStatus.textContent = "";
+    formStatus.classList.remove("success");
+  });
 
   updateCommentsCounter();
-}   
+});
+
+}   // closes if (form)
