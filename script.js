@@ -60,13 +60,14 @@ if (form) {
   }
 
   function validateWebsite() {
-  // Optional: an empty field is always fine
   if (websiteInput.value === "") return "";
 
-  // Let the browser decide whether it's a valid URL
   if (!websiteInput.validity.valid) {
     return websiteInput.validationMessage;
   }
+  if (!/^https?:\/\//i.test(websiteInput.value)) {
+  return "URL must start with http:// or https://";
+}
   return "";}
 
   nameInput.addEventListener("blur", () => {
@@ -82,16 +83,16 @@ if (form) {
     topicError.textContent = validateTopic();
   });
 
+  websiteInput.addEventListener("blur", () => {
+    websiteError.textContent = validateWebsite();
+  });
+
   commentsInput.addEventListener("input", () => {
     updateCommentsCounter();
     if (commentsError.textContent !== "") {
       commentsError.textContent = validateComments();
     }
   });
-
-  websiteInput.addEventListener("blur", () => {
-    websiteError.textContent = validateWebsite();
-});
 
   commentsInput.addEventListener("blur", () => {
     commentsError.textContent = validateComments();
@@ -119,11 +120,20 @@ form.addEventListener("submit", (e) => {
     else commentsInput.focus();
   }
 
-    if (!/^https?:\/\//i.test(websiteInput.value)) {
-    return "URL must start with http:// or https://";
-  }
-});
+form.addEventListener("reset", () => {
+  nameError.textContent = "";
+  emailError.textContent = "";
+  topicError.textContent = "";
+  websiteError.textContent = "";
+  commentsError.textContent = ""; });
 
+  // when reset it removes invalid markers because of using aria-invalid
+  [nameInput, emailInput, topicInput, websiteInput, commentsInput].forEach((el) => {
+    el.removeAttribute("aria-invalid");
+  });
+
+  setTimeout(updateCommentsCounter, 0);
+});
 
   updateCommentsCounter();
 }   

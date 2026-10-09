@@ -29,19 +29,19 @@
          <form id="FeedbackForm" novalidate>
             <div class="field">
                 <label for="name">Full Name*</label>
-                <input type="text" id="name" name="name" placeholder="Full Name">
+                <input type="text" id="name" name="name" placeholder="Full Name" aria-required="true" aria-describedby="nameError">
                 <span id="nameError"  class="error"></span>
             </div>
 
             <div class="field">         
                 <label for="email">Email*</label>
-                <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
+                <input type="email" id="email" name="email" placeholder="name@gmail.com" aria-required="true" aria-describedby="emailError">
                 <span id="emailError" class="error"></span>
             </div>   
 
             <div class="field">
                 <label for="topic">Topic*</label>            
-                <select id="topic" name="topic">
+                <select id="topic" name="topic" aria-required="true" aria-describedby="topicError">
                     <option value="" disabled selected hidden>Select a Topic*</option>
                     <option value="photography">Photography</option>
                     <option value="written_content">Written Content</option>
@@ -52,18 +52,20 @@
 
             <div class="field">
                 <label for="comments">Comments*</label>
-                <textarea id="comments" name="comments" rows="5"></textarea>
+                <textarea id="comments" name="comments" rows="5" aria-required="true" aria-describedby="commentsError"></textarea>
                 <span id="commentsCounter" class="counter">0 / 15 characters minimum</span>
                 <span id="commentsError" class="error"></span>
             </div>
 
         <div class="field">
             <label for="website">Website (optional)</label>
-            <input type="url" id="website" name="website" placeholder="https://example.com">
+            <input type="url" id="website" name="website" placeholder="https://example.com" aria-required="false" aria-describedby="websiteError">
             <span id="websiteError" class="error"></span>
         </div>
-
+        <div class="buttons">
             <button type="submit">Submit</button>
+            <button type="reset">Clear</button>
+        </div>
         </form>
    
         <p>* indicates a required field</p>
