@@ -14,6 +14,8 @@ if (form) {
   const commentsInput = document.getElementById("comments");
   const commentsError = document.getElementById("commentsError");
   const commentsCounter = document.getElementById("commentsCounter");
+  const websiteInput = document.getElementById("website");
+  const websiteError = document.getElementById("websiteError");
 
   const COMMENTS_MIN = 15;
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
@@ -57,6 +59,16 @@ if (form) {
     commentsCounter.style.color = met ? "green" : "gray";
   }
 
+  function validateWebsite() {
+  // Optional: an empty field is always fine
+  if (websiteInput.value === "") return "";
+
+  // Let the browser decide whether it's a valid URL
+  if (!websiteInput.validity.valid) {
+    return websiteInput.validationMessage;
+  }
+  return "";}
+
   nameInput.addEventListener("blur", () => {
     console.log("blur fired");
     nameError.textContent = validateName();
@@ -70,37 +82,48 @@ if (form) {
     topicError.textContent = validateTopic();
   });
 
-    commentsInput.addEventListener("input", () => {
+  commentsInput.addEventListener("input", () => {
     updateCommentsCounter();
     if (commentsError.textContent !== "") {
       commentsError.textContent = validateComments();
     }
   });
 
+  websiteInput.addEventListener("blur", () => {
+    websiteError.textContent = validateWebsite();
+});
+
   commentsInput.addEventListener("blur", () => {
     commentsError.textContent = validateComments();
   });
 
-  form.addEventListener("submit", (e) => {
-    const nameMsg = validateName();
-    const emailMsg = validateEmail();
-    const topicMsg = validateTopic();
-    const commentsMsg = validateComments();
+form.addEventListener("submit", (e) => {
+  const nameMsg = validateName();
+  const emailMsg = validateEmail();
+  const topicMsg = validateTopic();
+  const websiteMsg = validateWebsite();
+  const commentsMsg = validateComments();
 
-    nameError.textContent = nameMsg;
-    emailError.textContent = emailMsg;
-    topicError.textContent = topicMsg;
-    commentsError.textContent = commentsMsg;
+  nameError.textContent = nameMsg;
+  emailError.textContent = emailMsg;
+  topicError.textContent = topicMsg;
+  websiteError.textContent = websiteMsg;
+  commentsError.textContent = commentsMsg;
 
- if (nameMsg || emailMsg || topicMsg || commentsMsg) {
+  if (nameMsg || emailMsg || topicMsg || websiteMsg || commentsMsg) {
     e.preventDefault();
     if (nameMsg) nameInput.focus();
     else if (emailMsg) emailInput.focus();
     else if (topicMsg) topicInput.focus();
+    else if (websiteMsg) websiteInput.focus();
     else commentsInput.focus();
-    }
+  }
 
-  });
+    if (!/^https?:\/\//i.test(websiteInput.value)) {
+    return "URL must start with http:// or https://";
+  }
+});
+
 
   updateCommentsCounter();
 }   

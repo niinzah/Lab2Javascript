@@ -269,7 +269,6 @@ input,
 textarea {
     padding: 10px;
     font-size: 16px;               
-    border: 1px solid #ccc;
     font-family: monospace;
 }
 
@@ -291,6 +290,42 @@ button {
 
 button:hover {
     background-color: var(--primary-dark);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  font-family: monospace;
+}
+
+.error {
+  display: block;
+  min-height: 1.25rem;   /* reserves one line even when empty */
+  color: red;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.counter {
+  display: block;
+  font-size: 0.875rem;
+  min-height: 1.25rem;
+}
+
+#FeedbackForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#commentsError {
+  min-height: 2.5rem;
 }
 
 footer {
