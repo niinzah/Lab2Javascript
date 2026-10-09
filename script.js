@@ -11,47 +11,50 @@ if (form) {
   const emailError = document.getElementById("emailError");
   const topicInput = document.getElementById("topic");
   const topicError = document.getElementById("topicError");
+  const commentsInput = document.getElementById("comments");
+  const commentsError = document.getElementById("commentsError");
+  const commentsCounter = document.getElementById("commentsCounter");
 
-  console.log("4. nameInput:", nameInput, "nameError:", nameError);
-
+  const COMMENTS_MIN = 15;
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
   const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   function validateName() {
     const value = nameInput.value.trim();
-
-    if (value === "") {
-      return "Name is required.";
-    }
-    if (value.length < 2) {
-      return "Name must be at least 2 characters.";
-    }
-    if (!nameFormat.test(value)) {
-      return "Use only letters, spaces, apostrophes, and hyphens.";
-    }
+    if (value === "") return "Name is required.";
+    if (value.length < 2) return "Name must be at least 2 characters.";
+    if (!nameFormat.test(value)) return "Use only letters, spaces, apostrophes, and hyphens.";
     return "";
   }
 
   function validateEmail() {
     const value = emailInput.value.trim();
-
-    if (value === "") {
-      return "Email is required.";
-    }
-    if (!value.includes("@")) {
-      return "Email must contain an @ symbol.";
-    }
-    if (!emailFormat.test(value)) {
-      return "Enter a valid email address, like name@example.com.";
-    }
+    if (value === "") return "Email is required.";
+    if (!value.includes("@")) return "Email must contain an @ symbol.";
+    if (!emailFormat.test(value)) return "Enter a valid email address, like name@example.com.";
     return "";
   }
 
   function validateTopic() {
-    if (topicInput.value === "") {
-      return "Please select a topic.";
+    return topicInput.value === "" ? "Please select a topic." : "";
+  }
+
+  function validateComments() {
+    const length = commentsInput.value.trim().length;
+    if (length === 0) return "Comments are required.";
+    if (length < COMMENTS_MIN) {
+      return `Comments must be at least ${COMMENTS_MIN} characters (${COMMENTS_MIN - length} more needed).`;
     }
     return "";
+  }
+
+  function updateCommentsCounter() {
+    const length = commentsInput.value.trim().length;
+    const met = length >= COMMENTS_MIN;
+    commentsCounter.textContent = met
+      ? `${length} characters ✓`
+      : `${length} / ${COMMENTS_MIN} characters minimum`;
+    commentsCounter.style.color = met ? "green" : "gray";
   }
 
   nameInput.addEventListener("blur", () => {
@@ -67,26 +70,37 @@ if (form) {
     topicError.textContent = validateTopic();
   });
 
+    commentsInput.addEventListener("input", () => {
+    updateCommentsCounter();
+    if (commentsError.textContent !== "") {
+      commentsError.textContent = validateComments();
+    }
+  });
+
+  commentsInput.addEventListener("blur", () => {
+    commentsError.textContent = validateComments();
+  });
 
   form.addEventListener("submit", (e) => {
     const nameMsg = validateName();
     const emailMsg = validateEmail();
     const topicMsg = validateTopic();
+    const commentsMsg = validateComments();
 
     nameError.textContent = nameMsg;
     emailError.textContent = emailMsg;
     topicError.textContent = topicMsg;
+    commentsError.textContent = commentsMsg;
 
-    if (nameMsg || emailMsg) {
-      e.preventDefault();
-      // Focus the first field that has a problem
-      if (nameMsg) {
-        nameInput.focus();
-      } else if (emailMsg) {
-        emailInput.focus()
-      } else {
-        topicInput.focus();
-      }
+ if (nameMsg || emailMsg || topicMsg || commentsMsg) {
+    e.preventDefault();
+    if (nameMsg) nameInput.focus();
+    else if (emailMsg) emailInput.focus();
+    else if (topicMsg) topicInput.focus();
+    else commentsInput.focus();
     }
-  } );
+
+  });
+
+  updateCommentsCounter();
 }   

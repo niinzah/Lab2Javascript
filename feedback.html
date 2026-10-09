@@ -35,20 +35,21 @@
             <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
             <span id="emailError" style="color: red;"></span>
 
-            <select name="topic">
+            <select id="topic" name="topic">
                 <option value="" disabled selected hidden>Select a Topic*</option>
                 <option value="photography">Photography</option>
                 <option value="written_content">Written Content</option>
                 <option value="other">Other</option>
             </select>
 
-            <label for="message">Message (Optional)</label>
-            <textarea id="message" name="message" rows="5"></textarea>
+            <label for="comments">Comments*</label>
+            <textarea id="comments" name="comments" rows="5"></textarea>
+            <span id="commentsCounter">0 / 15 characters minimum</span>
+            <span id="commentsError" style="color: red;"></span>
 
     <button type="submit">Submit</button>
     </form>
     <p>* indicates a required field</p>
-    
 
     </section>
 
