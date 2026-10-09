@@ -7,6 +7,9 @@ if (form) {
 
   const nameInput = document.getElementById("name");
   const nameError = document.getElementById("nameError");
+  const emailInput = document.getElementById("email");
+  const emailError = document.getElementById("emailError");
+
   console.log("4. nameInput:", nameInput, "nameError:", nameError);
 
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
@@ -26,21 +29,45 @@ if (form) {
     return "";
   }
 
+  function validateEmail() {
+    const value = emailInput.value.trim();
+
+    if (value === "") {
+      return "Email is required.";
+    }
+    if (!value.includes("@")) {
+      return "Email must contain an @ symbol.";
+    }
+    if (!emailFormat.test(value)) {
+      return "Enter a valid email address, like name@example.com.";
+    }
+    return "";
+  }
+
   nameInput.addEventListener("blur", () => {
     console.log("blur fired");
     nameError.textContent = validateName();
   });
 
-  form.addEventListener("submit", (e) => {
-    console.log("submit fired");
-    const error = validateName();
-    nameError.textContent = error;
-
-    if (error) {
-      e.preventDefault();
-      nameInput.focus();
-    }
+    emailInput.addEventListener("blur", () => {
+    emailError.textContent = validateEmail();
   });
 
-  console.log("5. listeners attached");
-}
+  form.addEventListener("submit", (e) => {
+    const nameMsg = validateName();
+    const emailMsg = validateEmail();
+
+    nameError.textContent = nameMsg;
+    emailError.textContent = emailMsg;
+
+    if (nameMsg || emailMsg) {
+      e.preventDefault();
+      // Focus the first field that has a problem
+      if (nameMsg) {
+        nameInput.focus();
+      } else {
+        emailInput.focus();
+      }
+    }
+  } );
+}   
