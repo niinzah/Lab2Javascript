@@ -9,7 +9,7 @@ html,
     --overlay: rgba(0, 0, 0, 0.6);
     --seed-colour: #E9C46A;
     --error-colour: #b00020;
-    --success-colour: #1a6b32;
+    --success-colour: #38e878;
 }
 
 body {
@@ -76,6 +76,7 @@ nav {
   color: var(--text-light);
   font-weight: bold;
   text-decoration: none;
+  border-radius: 999px;
 }
 
 nav ul {
@@ -93,9 +94,11 @@ nav ul a {
   padding: 0.5rem 1rem;
   border-radius: 999px;
 }
+.site-title[aria-current="page"] { /*so that the navigation shows which page it is in*/
+    background-color: var(--primary-dark);
+}
 
 nav ul a[aria-current="page"] { /*so that the navigation shows which page it is in*/
-    font-size: clamp(0.9rem, 2vw, 1.125rem);
     background-color: var(--primary-dark);
     color: var(--seed-colour);
 }
@@ -108,6 +111,46 @@ nav ul a:hover {
 nav ul a:focus-visible {
     outline: 2px solid var(--text-light);
     outline-offset: 2px;
+}
+
+
+nav .site-title:hover {
+    color: var(--text-dark);
+    background-color: var(--primary-light);
+}
+
+nav .site-title:focus-visible {
+    outline: 2px solid var(--text-light);
+    outline-offset: 2px;
+}
+
+
+
+@media (max-width: 768px) {
+  nav {
+    height: 4rem;
+    padding: 0 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .site-title {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  nav ul a {
+    padding: 0.3rem 0.35rem;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
 }
 
 #main-content {
@@ -342,7 +385,7 @@ select {
 }
 
 .status.success {
-  color: #1a6b32;
+  color: var(--success-colour);
   font-weight: bold;
 }
 

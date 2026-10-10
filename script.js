@@ -107,15 +107,26 @@ function updateCommentsCounter() {
   renderCommentsCounter(commentsInput.value.trim().length);
 }
 
+  let statusTimer = null;
+
   function setFormStatus(message, isSuccess) {
+    clearTimeout(statusTimer);   // cancel any earlier countdown
     formStatus.textContent = message;
     formStatus.classList.toggle("success", isSuccess);
+
+    if (isSuccess) {
+      statusTimer = setTimeout(() => {
+        formStatus.textContent = "";
+        formStatus.classList.remove("success");
+      }, 4000);
+    }
   }
 
   function resetForm() {
     fieldPairs.forEach(([input, errorEl]) => clearFieldError(input, errorEl));
     renderCommentsCounter(0);
-}
+    setFormStatus("", false);   // clears the message and cancels the timer
+  }
 
   nameInput.addEventListener("blur", () => {
     applyValidation(nameInput, nameError, validateFullName());
@@ -166,19 +177,12 @@ function updateCommentsCounter() {
       return;
     }
 
-    setFormStatus("Thank you! Your feedback has been submitted.", true);
-    form.reset();
+    const fullName = nameInput.value.trim();
+    form.reset();                             
+    setFormStatus(`Thanks for your feedback, ${fullName}!`, true);
   });
 
   form.addEventListener("reset", resetForm);
-
-  clearButton.addEventListener("click", () => {
-    setFormStatus("", false);
-  });
-
-  clearButton.addEventListener("click", () => {
-    setFormStatus("", false);
-  });
 
   updateCommentsCounter(); 
 }
