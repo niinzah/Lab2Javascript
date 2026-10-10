@@ -1,28 +1,33 @@
-console.log("1. script.js loaded");
 const form = document.getElementById("FeedbackForm");
-console.log("2. form found:", form);
 
 if (form) {
-  console.log("3. inside the if block");
-
   const nameInput = document.getElementById("name");
   const nameError = document.getElementById("nameError");
   const emailInput = document.getElementById("email");
   const emailError = document.getElementById("emailError");
   const topicInput = document.getElementById("topic");
   const topicError = document.getElementById("topicError");
+  const websiteInput = document.getElementById("website");
+  const websiteError = document.getElementById("websiteError");
   const commentsInput = document.getElementById("comments");
   const commentsError = document.getElementById("commentsError");
   const commentsCounter = document.getElementById("commentsCounter");
-  const websiteInput = document.getElementById("website");
-  const websiteError = document.getElementById("websiteError");
   const formStatus = document.getElementById("formStatus");
+  const clearButton = form.querySelector('button[type="reset"]');
+
+  const fieldPairs = [
+    [nameInput, nameError],
+    [emailInput, emailError],
+    [topicInput, topicError],
+    [websiteInput, websiteError],
+    [commentsInput, commentsError],
+  ];
 
   const COMMENTS_MIN = 15;
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
   const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-  function validateName() {
+  function validateFullName() {
     const value = nameInput.value.trim();
     if (value === "") return "Name is required.";
     if (value.length < 2) return "Name must be at least 2 characters.";
@@ -42,6 +47,15 @@ if (form) {
     return topicInput.value === "" ? "Please select a topic." : "";
   }
 
+  function validateWebsite() {
+    if (websiteInput.value === "") return "";
+    if (!websiteInput.validity.valid) return websiteInput.validationMessage;
+    if (!/^https?:\/\//i.test(websiteInput.value)) {
+      return "URL must start with http:// or https://";
+    }
+    return "";
+  }
+
   function validateComments() {
     const length = commentsInput.value.trim().length;
     if (length === 0) return "Comments are required.";
@@ -51,106 +65,120 @@ if (form) {
     return "";
   }
 
-  function updateCommentsCounter() {
-    const length = commentsInput.value.trim().length;
-    const met = length >= COMMENTS_MIN;
-    commentsCounter.textContent = met
-      ? `${length} characters ✓`
-      : `${length} / ${COMMENTS_MIN} characters minimum`;
-    commentsCounter.style.color = met ? "green" : "gray";
+  function showFieldError(input, errorEl, message) {
+    errorEl.textContent = message;
+    input.setAttribute("aria-invalid", "true");
+    input.classList.remove("valid");
   }
 
-  function validateWebsite() {
-  if (websiteInput.value === "") return "";
-
-  if (!websiteInput.validity.valid) {
-    return websiteInput.validationMessage;
+  function clearFieldError(input, errorEl) {
+    errorEl.textContent = "";
+    input.removeAttribute("aria-invalid");
+    input.classList.remove("valid");
   }
-  if (!/^https?:\/\//i.test(websiteInput.value)) {
-  return "URL must start with http:// or https://";
+
+  function markFieldValid(input) {
+    input.setAttribute("aria-invalid", "false");
+    input.classList.add("valid");
+  }
+
+  function applyValidation(input, errorEl, message) {
+    if (message) {
+      showFieldError(input, errorEl, message);
+      return;
+    }
+    clearFieldError(input, errorEl);
+    if (input.value.trim() !== "") markFieldValid(input);
+  }
+
+function renderCommentsCounter(length) {
+  const met = length >= COMMENTS_MIN;
+
+  commentsCounter.textContent = met
+    ? `${length} characters ✓`
+    : `${length} / ${COMMENTS_MIN} characters minimum`;
+
+  commentsCounter.style.color = "";
+  commentsCounter.classList.toggle("too-short", !met && length > 0);
+  commentsCounter.classList.toggle("long-enough", met);
 }
-  return "";}
+
+function updateCommentsCounter() {
+  renderCommentsCounter(commentsInput.value.trim().length);
+}
+
+  function setFormStatus(message, isSuccess) {
+    formStatus.textContent = message;
+    formStatus.classList.toggle("success", isSuccess);
+  }
+
+  function resetForm() {
+    fieldPairs.forEach(([input, errorEl]) => clearFieldError(input, errorEl));
+    renderCommentsCounter(0);
+}
 
   nameInput.addEventListener("blur", () => {
-    console.log("blur fired");
-    nameError.textContent = validateName();
+    applyValidation(nameInput, nameError, validateFullName());
   });
 
   emailInput.addEventListener("blur", () => {
-    emailError.textContent = validateEmail();
+    applyValidation(emailInput, emailError, validateEmail());
   });
 
   topicInput.addEventListener("change", () => {
-    topicError.textContent = validateTopic();
+    applyValidation(topicInput, topicError, validateTopic());
   });
 
   websiteInput.addEventListener("blur", () => {
-    websiteError.textContent = validateWebsite();
+    applyValidation(websiteInput, websiteError, validateWebsite());
   });
 
   commentsInput.addEventListener("input", () => {
     updateCommentsCounter();
-    if (commentsError.textContent !== "") {
-      commentsError.textContent = validateComments();
+    if (commentsInput.getAttribute("aria-invalid") === "true") {
+      applyValidation(commentsInput, commentsError, validateComments());
     }
   });
 
   commentsInput.addEventListener("blur", () => {
-    commentsError.textContent = validateComments();
+    applyValidation(commentsInput, commentsError, validateComments());
   });
 
-form.addEventListener("submit", (e) => {
-  const nameMsg = validateName();
-  const emailMsg = validateEmail();
-  const topicMsg = validateTopic();
-  const websiteMsg = validateWebsite();
-  const commentsMsg = validateComments();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  nameError.textContent = nameMsg;
-  emailError.textContent = emailMsg;
-  topicError.textContent = topicMsg;
-  websiteError.textContent = websiteMsg;
-  commentsError.textContent = commentsMsg;
+    const messages = [
+      validateFullName(),
+      validateEmail(),
+      validateTopic(),
+      validateWebsite(),
+      validateComments(),
+    ];
 
-  e.preventDefault();
-
-  if (nameMsg || emailMsg || topicMsg || websiteMsg || commentsMsg) {
-    formStatus.textContent = "";
-    formStatus.classList.remove("success");
-
-    if (nameMsg) nameInput.focus();
-    else if (emailMsg) emailInput.focus();
-    else if (topicMsg) topicInput.focus();
-    else if (websiteMsg) websiteInput.focus();
-    else commentsInput.focus();
-    return;
-  }
-
-  formStatus.textContent = "Thank you! Your feedback has been submitted.";
-  formStatus.classList.add("success");
-
-  form.addEventListener("reset", () => {
-    nameError.textContent = "";
-    emailError.textContent = "";
-    topicError.textContent = "";
-    websiteError.textContent = "";
-    commentsError.textContent = "";
-
-    [nameInput, emailInput, topicInput, websiteInput, commentsInput].forEach((el) => {
-      el.removeAttribute("aria-invalid");
+    fieldPairs.forEach(([input, errorEl], i) => {
+      applyValidation(input, errorEl, messages[i]);
     });
 
-    // The reset event fires before the fields are emptied, so wait a tick
-    setTimeout(updateCommentsCounter, 0);
+    const firstErrorIndex = messages.findIndex((m) => m !== "");
+    if (firstErrorIndex !== -1) {
+      setFormStatus("", false);
+      fieldPairs[firstErrorIndex][0].focus();
+      return;
+    }
+
+    setFormStatus("Thank you! Your feedback has been submitted.", true);
+    form.reset();
   });
 
-  const clearButton = form.querySelector('button[type="reset"]');
+  form.addEventListener("reset", resetForm);
+
   clearButton.addEventListener("click", () => {
-    formStatus.textContent = "";
-    formStatus.classList.remove("success");
+    setFormStatus("", false);
   });
 
-  updateCommentsCounter();
-});
+  clearButton.addEventListener("click", () => {
+    setFormStatus("", false);
+  });
 
-}   // closes if (form)
+  updateCommentsCounter(); 
+}

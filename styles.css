@@ -8,6 +8,8 @@ html,
     --text-dark: #000;
     --overlay: rgba(0, 0, 0, 0.6);
     --seed-colour: #E9C46A;
+    --error-colour: #b00020;
+    --success-colour: #1a6b32;
 }
 
 body {
@@ -266,6 +268,7 @@ form { /*The input form in contact*/
   }
 
 input,
+select,
 textarea {
     padding: 10px;
     font-size: 16px;               
@@ -273,9 +276,10 @@ textarea {
 }
 
 input:focus, 
+select:focus,
 textarea:focus {
-    outline: 2px solid var(--primary);
-    border-color: var(--primary);
+    outline: 2px solid var(--text-dark);
+    border-color: var(--text-dark);
 }
 
 button {
@@ -301,14 +305,13 @@ button:hover {
 select {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
   font-family: monospace;
 }
 
 .error {
   display: block;
-  min-height: 1.25rem;   /* reserves one line even when empty */
-  color: red;
+  min-height: 2.5rem;
+  color: var(--error-colour);
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -317,15 +320,20 @@ select {
   display: block;
   font-size: 0.875rem;
   min-height: 1.25rem;
+  color: #555;
+}
+
+.counter.too-short {
+  color: var(--error-colour);
+}
+
+.counter.long-enough {
+  color: var(--success-colour);
 }
 
 #FeedbackForm {
     display: flex;
     flex-direction: column;
-}
-
-#commentsError {
-  min-height: 2.5rem;
 }
 
 .status {
@@ -335,6 +343,36 @@ select {
 
 .status.success {
   color: #1a6b32;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  border: 2px solid #ccc;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--error-colour);
+}
+
+input[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus {
+  outline: 2px solid var(--error-colour);
+  border-color: var(--error-colour);
+}
+
+input.valid,
+select.valid,
+textarea.valid {
+  border-color: var(--success-colour);
+}
+
+.error:not(:empty)::before {
+  content: "Error: ";
   font-weight: bold;
 }
 
