@@ -12,13 +12,13 @@ class Skills {
 }
 
 const skills = [
-{id: 1245, name: "skill1", category: "category1", proficiency: 1, yearsExperience: 5.5, description: "Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah."},
-{id: 1246, name: "skill2", category: "category2", proficiency: 2, yearsExperience: 3.2, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah."},
-{id: 1247, name: "skill3", category: "category3", proficiency: 3, yearsExperience: 5.8  , description: "blah blah blah"},
-{id: 1248, name: "skill4", category: "category4", proficiency: 4, yearsExperience: 2.1, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah."},
-{id: 1259, name: "skill5", category: "category5", proficiency: 5, yearsExperience: 4.7, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blahblah."},
-{id: 1209, name: "skill5", category: "category5", proficiency: 5, yearsExperience: 4.7, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blahblah."},
-{id: 1249, name: "skill5", category: "category5", proficiency: 5, yearsExperience: 4.7, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blahblah."},
-{id: 1229, name: "skill5", category: "category5", proficiency: 5, yearsExperience: 4.7, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blahblah."} 
+{id: 1, name: "User Interviews", category: "Professional", proficiency: 5, yearsExperience: 5.5, description: "Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah."},
+{id: 2, name: "Prototype Testing", category: "Professional", proficiency: 3, yearsExperience: 6.0, description: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah."},
+{id: 3, name: "Surveys", category: "Professional", proficiency: 3, yearsExperience: 7.0, description: "blah blah blah"},
+{id: 4, name: "Weight Lifting", category: "Fitness", proficiency: 4, yearsExperience: 10.0, description: "blah blah blah blah blah blah blah blah blah blah blahblah."},
+{id: 5, name: "Running", category: "Fitness", proficiency: 3, yearsExperience: 12.0, description: "blahblah."},
+{id: 6, name: "Swedish", category: "Language", proficiency: 3, yearsExperience: 10.0, description: "blahblah."},
+{id: 7, name: "German", category: "Language", proficiency: 4, yearsExperience: 5.5, description: "blah blah blah blah blah blah blah blahblah."},
+{id: 8, name: "English", category: "Language", proficiency: 5, yearsExperience: 19.0, description: "blahblah."} 
 ];
 
