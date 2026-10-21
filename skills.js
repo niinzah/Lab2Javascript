@@ -37,7 +37,14 @@ function renderSkills(list = skills) {
     const description = document.createElement("p");
     description.textContent = skill.description;
 
-    card.append(title, description);
+    const category = document.createElement("p");
+    category.className = "skill-category";
+    category.textContent = skill.category;
+
+    const meta = document.createElement("p");
+    meta.textContent = `${skill.proficiency} ${skill.proficiency === 1 ? "proficiency" : "proficiency out of 5"}` + " · " + `${skill.yearsExperience} ${skill.yearsExperience === 1 ? "year" : "years"}`;
+
+    card.append(title, category, meta, description);
     skillsContainer.appendChild(card);
   });
 }
