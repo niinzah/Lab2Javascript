@@ -442,6 +442,24 @@ textarea.valid {
   margin: 0 0 0.5rem;
 }
 
+.filter-btn {
+  background-color: transparent;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary);
+  border-radius: 999px;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--text-light);
+}
+
+.filter-btn.active {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
 footer {
   background-color: var(--primary);
   padding: 10px;

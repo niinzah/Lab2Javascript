@@ -49,6 +49,18 @@ function renderSkills(list = skills) {
   });
 }
 
+function createFilterButton(label, category) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "filter-btn";
+  button.textContent = label;
+  button.dataset.category = category;
+  button.setAttribute("aria-pressed", "false");
+  return button;
+
+
 document.addEventListener("DOMContentLoaded", () => {
   renderSkills();
 });
+
+}
