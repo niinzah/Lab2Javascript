@@ -23,6 +23,7 @@ const skills = [
 ];
 
 const skillsContainer = document.getElementById("skills-container");
+const filterContainer = document.getElementById("skill-filters");
 
 function renderSkills(list = skills) {
   skillsContainer.innerHTML = "";
@@ -57,10 +58,41 @@ function createFilterButton(label, category) {
   button.dataset.category = category;
   button.setAttribute("aria-pressed", "false");
   return button;
+}
 
+function renderFilters() {
+  filterContainer.innerHTML = "";
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderSkills();
-});
+  const categories = [...new Set(skills.map((skill) => skill.category))];
 
+  filterContainer.appendChild(createFilterButton("All Skills", "all"));
+  categories.forEach((category) => {
+    filterContainer.appendChild(createFilterButton(category, category));
+  });
+}
+
+function filterSkills(category) {
+  const list = category === "all"
+    ? skills
+    : skills.filter((skill) => skill.category === category);
+
+  renderSkills(list);
+
+  filterContainer.querySelectorAll(".filter-btn").forEach((button) => {
+    const active = button.dataset.category === category;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+if (skillsContainer && filterContainer) {
+  filterContainer.addEventListener("click", (e) => {
+    const button = e.target.closest(".filter-btn");
+    if (button) filterSkills(button.dataset.category);
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderFilters();
+    filterSkills("all");
+  });
 }

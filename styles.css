@@ -442,6 +442,21 @@ textarea.valid {
   margin: 0 0 0.5rem;
 }
 
+.skill-category {
+  color: var(--text-light);
+  background-color: var(--text-dark);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.skill-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 clamp(0.75rem, 3vw, 3rem);
+  margin-bottom: 1rem;
+}
+
 .filter-btn {
   background-color: transparent;
   color: var(--primary-dark);
