@@ -24,6 +24,7 @@ const skills = [
 
 const skillsContainer = document.getElementById("skills-container");
 const filterContainer = document.getElementById("skill-filters");
+const sortSelect = document.getElementById("skill-sort");
 
 function renderSkills(list = skills) {
   skillsContainer.innerHTML = "";
@@ -70,24 +71,42 @@ function renderFilters() {
     filterContainer.appendChild(createFilterButton(category, category));
   });
 }
+let currentCategory = "all";
+let currentSort = "name";
 
-function filterSkills(category) {
-  const list = category === "all"
+const sorters = {
+  name: (a, b) => a.name.localeCompare(b.name),
+};
+
+function updateSkills() {
+  const filtered = currentCategory === "all"
     ? skills
-    : skills.filter((skill) => skill.category === category);
+    : skills.filter((skill) => skill.category === currentCategory);
 
-  renderSkills(list);
+  const sorted = [...filtered].sort(sorters[currentSort]);
+
+  renderSkills(sorted);
 
   filterContainer.querySelectorAll(".filter-btn").forEach((button) => {
-    const active = button.dataset.category === category;
+    const active = button.dataset.category === currentCategory;
     button.setAttribute("aria-pressed", String(active));
   });
 }
 
-if (skillsContainer && filterContainer) {
+function filterSkills(category) {
+  currentCategory = category;
+  updateSkills();
+}
+
+if (skillsContainer && filterContainer && sortSelect) {
   filterContainer.addEventListener("click", (e) => {
     const button = e.target.closest(".filter-btn");
     if (button) filterSkills(button.dataset.category);
+  });
+
+  sortSelect.addEventListener("change", () => {
+    currentSort = sortSelect.value;
+    updateSkills();
   });
 
   document.addEventListener("DOMContentLoaded", () => {

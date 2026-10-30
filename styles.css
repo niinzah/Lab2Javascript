@@ -476,6 +476,14 @@ textarea.valid {
   outline-offset: 2px;
 }
 
+.skill-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 clamp(0.75rem, 3vw, 3rem);
+  margin-bottom: 1rem;
+}
+
 footer {
   background-color: var(--primary);
   padding: 10px;
