@@ -10,6 +10,7 @@ html,
     --seed-colour: #E9C46A;
     --error-colour: #b00020;
     --success-colour: #38e878;
+    --radius: 999px;
 }
 
 body {
@@ -445,7 +446,6 @@ textarea.valid {
 .skill-category {
   color: var(--text-light);
   background-color: var(--text-dark);
-  border-radius: 4px;
   text-align: center;
 }
 
@@ -457,22 +457,23 @@ textarea.valid {
   margin-bottom: 1rem;
 }
 
-.filter-btn {
-  background-color: transparent;
-  color: var(--primary-dark);
-  border: 2px solid var(--primary);
-  border-radius: 999px;
-  font-family: inherit;
+.filter-btn[aria-pressed="true"] {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  font-weight: bold;}
+
+.filter-btn[aria-pressed="true"]::before {
+  content: "Filter on: ";
 }
 
-.filter-btn:hover {
+.filter-btn[aria-pressed="false"]:hover {
   background-color: var(--primary-light);
   color: var(--text-light);
 }
 
-.filter-btn.active {
-  background-color: var(--primary);
-  color: var(--text-light);
+.filter-btn:focus-visible {
+  outline: 3px solid var(--text-dark);
+  outline-offset: 2px;
 }
 
 footer {

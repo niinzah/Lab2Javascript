@@ -80,7 +80,6 @@ function filterSkills(category) {
 
   filterContainer.querySelectorAll(".filter-btn").forEach((button) => {
     const active = button.dataset.category === category;
-    button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
   });
 }
