@@ -81,6 +81,10 @@ const sorters = {
    b.proficiency - a.proficiency || a.name.localeCompare(b.name),
     "proficiency-asc": (a, b) =>
     a.proficiency - b.proficiency || a.name.localeCompare(b.name),
+  years: (a, b) =>
+    b.yearsExperience - a.yearsExperience || a.name.localeCompare(b.name),
+  "years-asc": (a, b) =>
+    a.yearsExperience - b.yearsExperience || a.name.localeCompare(b.name),
 };
 
 function updateSkills() {
