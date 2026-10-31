@@ -76,6 +76,11 @@ let currentSort = "name";
 
 const sorters = {
   name: (a, b) => a.name.localeCompare(b.name),
+  "name-desc": (a, b) => b.name.localeCompare(a.name),
+  proficiency: (a, b) =>
+   b.proficiency - a.proficiency || a.name.localeCompare(b.name),
+    "proficiency-asc": (a, b) =>
+    a.proficiency - b.proficiency || a.name.localeCompare(b.name),
 };
 
 function updateSkills() {
