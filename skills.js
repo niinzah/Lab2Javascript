@@ -25,6 +25,7 @@ const skills = [
 const skillsContainer = document.getElementById("skills-container");
 const filterContainer = document.getElementById("skill-filters");
 const sortSelect = document.getElementById("skill-sort");
+const skillCount = document.getElementById("skill-count");
 
 function renderSkills(list = skills) {
   skillsContainer.innerHTML = "";
@@ -95,6 +96,23 @@ function updateSkills() {
   const sorted = [...filtered].sort(sorters[currentSort]);
 
   renderSkills(sorted);
+
+  filterContainer.querySelectorAll(".filter-btn").forEach((button) => {
+    const active = button.dataset.category === currentCategory;
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function updateSkills() {
+  const filtered = currentCategory === "all"
+    ? skills
+    : skills.filter((skill) => skill.category === currentCategory);
+
+  const sorted = [...filtered].sort(sorters[currentSort]);
+
+  renderSkills(sorted);
+
+  skillCount.textContent = `Showing ${sorted.length} of ${skills.length} skills`;
 
   filterContainer.querySelectorAll(".filter-btn").forEach((button) => {
     const active = button.dataset.category === currentCategory;
