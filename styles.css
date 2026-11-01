@@ -1,5 +1,3 @@
-html,
-
 :root { 
     --primary: #426e55;
     --primary-dark: #21392a;
@@ -10,6 +8,7 @@ html,
     --seed-colour: #E9C46A;
     --error-colour: #b00020;
     --success-colour: #38e878;
+    --seed-colour: #E9C46A;
     --radius: 999px;
 }
 
@@ -82,9 +81,11 @@ nav {
 
 nav ul {
   display: flex;
+  align-items: center;
+  gap: 0.25rem;
   list-style: none;
-  margin: 0 rem;
-  padding: 0 rem;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul a {
@@ -114,7 +115,6 @@ nav ul a:focus-visible {
     outline-offset: 2px;
 }
 
-
 nav .site-title:hover {
     color: var(--text-dark);
     background-color: var(--primary-light);
@@ -124,7 +124,6 @@ nav .site-title:focus-visible {
     outline: 2px solid var(--text-light);
     outline-offset: 2px;
 }
-
 
 
 @media (max-width: 768px) {
@@ -225,6 +224,11 @@ nav .site-title:focus-visible {
 .box:focus-within figcaption,    /*for keyboard users, when the box is focused, the caption will show*/
 .box:focus figcaption {
     opacity: 1;
+}
+
+.box:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: -3px;
 }
 
 .timeline ol { /*the timeline in experiences*/
@@ -484,12 +488,79 @@ textarea.valid {
   margin-bottom: 1rem;
 }
 
+.skill-card {
+  animation: card-fade 0.4s ease both;
+}
+
+@keyframes card-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 footer {
   background-color: var(--primary);
-  padding: 10px;
+  color: var(--text-light);
+  padding: 1.5rem clamp(0.75rem, 3vw, 3rem);
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  justify-content: space-between;
+}
+
+.footer-col {
+  flex: 1 1 160px;
+}
+
+footer h2 {
+  font-size: 1rem;
+  color: var(--text-light);
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer li {
+  margin-bottom: 0.25rem;
+}
+
+footer a {
+  color: var(--text-light);
+}
+
+footer a:hover {
+  color: var(--seed-colour);
+}
+
+footer a:focus-visible {
+  outline: 2px solid var(--seed-colour);
+  outline-offset: 2px;
+}
+
+footer .footer-copy {
   text-align: center;
-  bottom: 0;
-  right: 0;
-  left: 200px;
-  height: 40px;
+  margin: 1.5rem 0 0;
+  padding: 0;
 }
