@@ -7,8 +7,7 @@
     --overlay: rgba(0, 0, 0, 0.6);
     --seed-colour: #E9C46A;
     --error-colour: #b00020;
-    --success-colour: #38e878;
-    --seed-colour: #E9C46A;
+    --success-colour: #1a6b32;
     --radius: 999px;
 }
 
@@ -66,7 +65,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 1.25rem;
+  padding: 0 1.25rem;
   z-index: 1000;
   box-sizing: border-box;
 }
@@ -77,6 +76,7 @@ nav {
   font-weight: bold;
   text-decoration: none;
   border-radius: 999px;
+  padding: 0.25rem 0.6rem;
 }
 
 nav ul {
@@ -84,11 +84,12 @@ nav ul {
   align-items: center;
   gap: 0.25rem;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: 0;
 }
 
-nav ul a {
+nav ul a {  
+  display: inline-block;
   text-decoration: underline;
   font-size: clamp(0.9rem, 2vw, 1.125rem);
   color: var(--seed-colour);
@@ -148,19 +149,19 @@ nav .site-title:focus-visible {
 
   nav ul a {
     padding: 0.3rem 0.35rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     white-space: nowrap;
   }
 }
+   @media (max-width: 400px) {
+     nav ul a {
+       padding: 0.3rem 0.25rem;
+       font-size: 0.68rem;
+     }
+   }
 
 #main-content {
   margin-top: 6rem;
-}
-
-#content-container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column-reverse;
 }
 
 .container {
@@ -171,7 +172,7 @@ nav .site-title:focus-visible {
   height: calc(200vh - 4rem);
   height: calc(200dvh - 4rem);
   padding: 0.5rem;
-  box-sizing: border-box
+  box-sizing: border-box,
 }
 
 @media (max-width: 768px) { /*so that the photos adjust for mobile (no longer 3x3)*/
@@ -321,6 +322,7 @@ textarea {
     padding: 10px;
     font-size: 16px;               
     font-family: monospace;
+    border: 2px solid #ccc;
 }
 
 input:focus, 
@@ -350,12 +352,6 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
-select {
-  padding: 10px;
-  font-size: 14px;
-  font-family: monospace;
-}
-
 .error {
   display: block;
   min-height: 2.5rem;
@@ -379,11 +375,6 @@ select {
   color: var(--success-colour);
 }
 
-#FeedbackForm {
-    display: flex;
-    flex-direction: column;
-}
-
 .status {
   min-height: 1.5rem;
   font-size: 0.9rem;
@@ -392,12 +383,6 @@ select {
 .status.success {
   color: var(--success-colour);
   font-weight: bold;
-}
-
-input,
-select,
-textarea {
-  border: 2px solid #ccc;
 }
 
 input[aria-invalid="true"],
@@ -428,7 +413,7 @@ textarea.valid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
-  padding: 0 clamp(3rem, 3vw, 3rem);
+  padding: 0 clamp(0.75rem, 3vw, 3rem);
   margin-bottom: 1rem;
 }
 
@@ -436,6 +421,7 @@ textarea.valid {
   border: 2px solid var(--primary);
   border-radius: 8px;
   padding: 1rem;
+  animation: card-fade 0.4s ease both;
 }
 
 .skill-card h3 {
@@ -464,7 +450,8 @@ textarea.valid {
 .filter-btn[aria-pressed="true"] {
   background-color: var(--primary-dark);
   color: var(--text-light);
-  font-weight: bold;}
+  font-weight: bold;
+}
 
 .filter-btn[aria-pressed="true"]::before {
   content: "Filter on: ";
@@ -486,10 +473,6 @@ textarea.valid {
   gap: 0.5rem;
   padding: 0 clamp(0.75rem, 3vw, 3rem);
   margin-bottom: 1rem;
-}
-
-.skill-card {
-  animation: card-fade 0.4s ease both;
 }
 
 @keyframes card-fade {

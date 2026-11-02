@@ -47,21 +47,21 @@
                     <option value="written_content">Written Content</option>
                     <option value="other">Other</option>
                 </select>
-                <span id="topicError" class="error "></span>
+                <span id="topicError" class="error"></span>
             </div>
 
             <div class="field">
+              <label for="website">Website (optional)</label>
+              <input type="url" id="website" name="website" placeholder="https://example.com" aria-describedby="websiteError">
+            <span id="websiteError" class="error"></span>
+           </div>
+
+            <div class="field">
                 <label for="comments">Comments*</label>
-                <textarea id="comments" name="comments" rows="5" aria-required="true" aria-describedby="commentsError"></textarea>
+                <textarea id="comments" name="comments" rows="5" aria-required="true" aria-describedby="commentsCounter commentsError"></textarea>
                 <span id="commentsCounter" class="counter">0 / 15 characters minimum</span>
                 <span id="commentsError" class="error"></span>
             </div>
-
-        <div class="field">
-            <label for="website">Website (optional)</label>
-            <input type="url" id="website" name="website" placeholder="https://example.com" aria-required="false" aria-describedby="websiteError">
-            <span id="websiteError" class="error"></span>
-        </div>
     
         <div id="formStatus" class="status" role="status" aria-live="polite" aria-atomic="true"></div>
 
@@ -72,8 +72,6 @@
         </form>
    
         <p>* indicates a required field</p>
-
-    </section>
     </main>
 
     <footer>
@@ -85,6 +83,7 @@
             <li><a href="skills.html">Skills</a></li>
             <li><a href="experiences.html">Experience</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
           </ul>
         </div>
 
@@ -106,6 +105,6 @@
       </div>
 
       <p class="footer-copy">&copy; 2026 Nina Zahrai</p>
-    </footer>  </body>
-
+       </footer>
+     </body>
 </html>
