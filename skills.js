@@ -1,3 +1,5 @@
+// Data
+
 const skills = [
 {id: 1, name: "User Interviews", category: "Professional", proficiency: 5, yearsExperience: 5.5, description: "I use this skill when designing apps and websites to talk to potential users and to understand user needs and pain points. I am able to ask questions in a way which truly digs into understanding the WHY behind their answers."},
 {id: 2, name: "Prototype Testing", category: "Professional", proficiency: 3, yearsExperience: 6.0, description: "Once I have created an app or a website, I test it with users to see if they can use it and understand it. I am able to observe their behavior and ask questions to understand their experience."},
@@ -9,11 +11,13 @@ const skills = [
 {id: 8, name: "English", category: "Language", proficiency: 5, yearsExperience: 19.0, description: "I learnt German which has also helped me in my work life and career, as I worked in a German company."} 
 ];
 
+// Element references
 const skillsContainer = document.getElementById("skills-container");
 const filterContainer = document.getElementById("skill-filters");
 const sortSelect = document.getElementById("skill-sort");
 const skillCount = document.getElementById("skill-count");
 
+// Rendering
 function renderSkills(list = skills) {
   skillsContainer.innerHTML = "";
 
@@ -60,6 +64,7 @@ function renderFilters() {
   });
 }
 
+// State
 let currentCategory = "all";
 let currentSort = "name";
 
@@ -98,6 +103,7 @@ function filterSkills(category) {
   updateSkills();
 }
 
+// Events
 if (skillsContainer && filterContainer && sortSelect) {
   filterContainer.addEventListener("click", (e) => {
     const button = e.target.closest(".filter-btn");
