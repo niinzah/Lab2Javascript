@@ -13,8 +13,6 @@ if (form) {
   const commentsError = document.getElementById("commentsError");
   const commentsCounter = document.getElementById("commentsCounter");
   const formStatus = document.getElementById("formStatus");
-  const clearButton = form.querySelector('button[type="reset"]');
-
   const fieldPairs = [
     [nameInput, nameError],
     [emailInput, emailError],
