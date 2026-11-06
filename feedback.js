@@ -22,6 +22,7 @@ if (form) {
   ];
 
   const COMMENTS_MIN = 15;
+  const COMMENTS_MAX = 50;
   const nameFormat = /^[\p{L}\p{M}][\p{L}\p{M}' \-]*$/u;
   const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -60,6 +61,9 @@ if (form) {
     if (length < COMMENTS_MIN) {
       return `Comments must be at least ${COMMENTS_MIN} characters (${COMMENTS_MIN - length} more needed).`;
     }
+    if (length > COMMENTS_MAX) {
+      return `Comments must be no more than ${COMMENTS_MAX} characters.`;
+    }
     return "";
   }
 
@@ -90,11 +94,14 @@ if (form) {
   }
 
 function renderCommentsCounter(length) {
-  const met = length >= COMMENTS_MIN;
+  const tooLong = length > COMMENTS_MAX;
+  const met = length >= COMMENTS_MIN && !tooLong;
 
-  commentsCounter.textContent = met
-    ? `${length} characters ✓`
-    : `${length} / ${COMMENTS_MIN} characters minimum`;
+  commentsCounter.textContent = tooLong
+   ? `${length} / ${COMMENTS_MAX} characters maximum`
+   : met
+      ? `${length} characters ✓`
+      : `${length} / ${COMMENTS_MIN} characters minimum`;
 
   commentsCounter.style.color = "";
   commentsCounter.classList.toggle("too-short", !met && length > 0);

@@ -7,8 +7,8 @@ const skills = [
 {id: 4, name: "Weight Lifting", category: "Fitness", proficiency: 4, yearsExperience: 10.0, description: "Through consistent weight lifting, I have improved my strength and endurance as well as my discipline and focus which I also use in my studies and work."},
 {id: 5, name: "Running", category: "Fitness", proficiency: 3, yearsExperience: 12.0, description: "Similarly to weight lifting, running has helped me improve my cardiovascular health and mental resilience."},
 {id: 6, name: "Swedish", category: "Language", proficiency: 3, yearsExperience: 10.0, description: "I learnt swedish as a child and am currently relearning it, I use this skill on a day to day basis."},
-{id: 7, name: "English", category: "Language", proficiency: 4, yearsExperience: 5.5, description: "I use English in my studies and work life, I conduct my user interviews and surveys in English which allows me to reach a wide range of users."},
-{id: 8, name: "German", category: "Language", proficiency: 5, yearsExperience: 19.0, description: "I learnt German which has also helped me in my work life and career, as I worked in a German company."} 
+{id: 7, name: "English", category: "Language", proficiency: 5, yearsExperience: 19.0, description: "I use English in my studies and work life, I conduct my user interviews and surveys in English which allows me to reach a wide range of users."},
+{id: 8, name: "German", category: "Language", proficiency: 4, yearsExperience: 5.5, description: "I learnt German which has also helped me in my work life and career, as I worked in a German company."} 
 ];
 
 // Element references
